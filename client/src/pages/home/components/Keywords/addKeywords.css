@@ -1,0 +1,72 @@
+.keywords-wrapper{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.keywords-wrapper .add-keyword{
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    gap: 5px 1em;
+}
+
+.keywords-wrapper .add-keyword input{
+    flex: 1;
+    height: 35px;
+    border: 1px solid #dddd;
+    text-indent: 10px;
+}
+
+.keywords-wrapper .add-keyword input:focus{
+    border: 1px solid #cccc;
+}
+
+.keywords-wrapper .list-keywords{
+    height: 100%;
+    max-height: 500px;
+    overflow-y: auto;
+    width: 100%;
+    display: flex;
+    gap: 0px 1.5em;
+}
+
+.list-keywords .pings
+{
+    margin-top: 0px;
+    flex: 1;
+    max-height: 300px;
+    overflow: auto;
+}
+
+.list-keywords .keywords-label,
+.add-keywords-label
+{
+    font-size: 18px;
+    font-weight: 600;
+    margin: 5px 10px 5px 0;
+}
+
+.add-keywords-label{
+    margin: 10px 0;
+}
+.list-keywords .keyword-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    padding: 7.5px 10px 7.5px 10px;
+    margin: 7.5px 0;
+    border: 1px solid #dddd;
+}
+
+.list-keywords .keyword-item:hover{
+    border: 2px solid #4d4d4dcc;
+}

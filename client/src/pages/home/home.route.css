@@ -1,0 +1,35 @@
+/* .arco-menu-inner > .arco-menu-item:first-of-type.arco-menu-selected svg{
+    color: white !important;
+} */
+
+.home{
+    width: 100%;
+}
+.home .content{
+    width: 100%;
+    max-width: 100%;
+    padding: 0 1.5em;
+    width: 100% !important;
+    margin-top: 1em;
+    overflow-x: hidden;
+}
+
+.action-btns{
+    display: flex;
+    flex: row;
+    align-items: center;
+    gap: 0 10px;
+}
+.home .add-accounts-btn{
+    padding: 5px 20px;
+    height: 40px;
+    background-color: black !important;
+}
+
+.home .hideBankId{
+    display: none !important;
+}
+
+.arco-modal-content .arco-spin{
+    display: block !important;
+}
