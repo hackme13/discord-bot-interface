@@ -50,7 +50,7 @@ export async function getToken(req, res) {
 export async function updateToken(req, res) {
     try {
         const { existingToken, newToken } = req.body;
-        const { userId } = req.userData;
+        let { userId } = req.userData;
 
         if (!existingToken || !newToken) {
           return res
@@ -59,7 +59,7 @@ export async function updateToken(req, res) {
         }
 
         await Token.findOneAndUpdate(
-          userId,
+          { userId },
           { $set: { token: newToken } },
           { new: true }
         )

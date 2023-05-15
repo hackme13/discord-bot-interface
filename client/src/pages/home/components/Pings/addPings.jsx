@@ -130,23 +130,27 @@ const AddPingsForm = () => {
                         <div className="pings">
                         <label htmlFor="#" className='keywords-label'>Pings</label>
                         {
-                            Object.entries(data).map(([key, value]) => {
-                                return(
-                                    <div className='keyword-item' key={`${key}+${value}`}>
-                                        {value === "@everyone" ? (
-                                            <span>{key}  :  <Tag color='#00b42a'>{value}</Tag></span>
-                                        ) : (
-                                            <span>{key}  :  <Tag>{value}</Tag></span>
-                                        ) }
-                                        <Button
-                                        type='primary'
-                                        status='danger'
-                                        onClick={
-                                            () => handleDeletePing(key)
-                                        }><IconDelete /></Button>
-                                    </div>
-                                )
-                            })
+                            (Object.entries(data).length > 0) ? (
+                                Object.entries(data).map(([key, value]) => {
+                                    return(
+                                        <div className='keyword-item' key={`${key}+${value}`}>
+                                            {value === "@everyone" ? (
+                                                <span>{key}  :  <Tag color='#00b42a'>{value}</Tag></span>
+                                            ) : (
+                                                <span>{key}  :  <Tag>{value}</Tag></span>
+                                            ) }
+                                            <Button
+                                            type='primary'
+                                            status='danger'
+                                            onClick={
+                                                () => handleDeletePing(key)
+                                            }><IconDelete /></Button>
+                                        </div>
+                                    )
+                                })
+                            ) : (
+                                <></>
+                            )
                         }
                         </div>
                     </div>

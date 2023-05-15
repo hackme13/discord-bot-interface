@@ -1,5 +1,5 @@
 import { Modal, Spin, Button, Form, Input, Notification } from '@arco-design/web-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import getToken from './utils/getToken';
 import saveToken from './utils/saveToken';
@@ -8,11 +8,21 @@ import updateToken from './utils/updateToken';
 const FormItem = Form.Item;
 
 const AddDiscordToken = () => {
-    const [tokenData, setTokenData] = useState({})
+    const [tokenData, setTokenData] = useState({});
+    const [prevToken, setPrevToken] = useState("");
 
     const [visible, setVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [form] = Form.useForm();
+
+    async function getInitialToken() {
+        const resGetInitialToken = await getToken();
+        setPrevToken(resGetInitialToken.token)
+    };
+
+    useEffect(() => {
+        getInitialToken();
+    }, [prevToken])
 
     async function handleToken() {        
         // search for token
@@ -117,7 +127,11 @@ const AddDiscordToken = () => {
                 setTokenData(v)
             }}
             >
-            <FormItem label='Previous Token' field='previous_token' rules={[{ required: true }]}>
+            <FormItem 
+            initialValue={prevToken}
+            label='Previous Token' 
+            field='previous_token' 
+            rules={[{ required: true }]}>
                 <Input disabled/>
             </FormItem>
             <FormItem

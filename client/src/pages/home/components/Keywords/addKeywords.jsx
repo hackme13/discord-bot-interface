@@ -12,9 +12,9 @@ import handleAddKeyword from './addKeyword.js';
 const AddKeywordsForm = () => {
     const queryClient = useQueryClient();
 
-    const [replacementsList, setReplacementsList] = useState([""]);
-    const [blacklistList, setBlacklistList] = useState([""]);
-    const [blacklistembedList, setBlacklistembedList] = useState([""]);
+    const [replacementsList, setReplacementsList] = useState([]);
+    const [blacklistList, setBlacklistList] = useState([]);
+    const [blacklistembedList, setBlacklistembedList] = useState([]);
 
     const [visible, setVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
@@ -172,55 +172,77 @@ const AddKeywordsForm = () => {
                         <div className="replacements">
                         <label htmlFor="#" className='keywords-label'>Replacements</label>
                         {
-                            Object.entries(replacementsList).map(([key, value]) => {
-                                return(
-                                    <div className='keyword-item' key={`${key}+${value}`}>
-                                        <span>{key} : {value}</span>
-                                        <Button
-                                        type='primary'
-                                        status='danger'
-                                        onClick={
-                                            () => handleDeleteKeyword(key, "replacement")
-                                        }><IconDelete /></Button>
-                                    </div>
-                                )
-                            })
+                            (Object.entries(replacementsList).length) ? (
+                                Object.entries(replacementsList).map(([key, value]) => {
+                                    return(
+                                        (value.length) ? (
+                                            <div className='keyword-item' key={`${key}+${value}`}>
+                                            <span>{key} : {value}</span>
+                                            <Button
+                                            type='primary'
+                                            status='danger'
+                                            onClick={
+                                                () => handleDeleteKeyword(key, "replacement")
+                                            }><IconDelete /></Button>
+                                        </div>
+                                        ) : (
+                                            <></>
+                                        )
+                                    )
+                                })
+                            ) : (<></>)
                         }
                         </div>
                         <div className="blacklist">
                         <label htmlFor="#" className='keywords-label'>Blacklist</label>
                         {
-                            blacklistList.map((item, index) => {
-                                return(
-                                    <div className='keyword-item' key={`${index}+${item}`}>
-                                        <span>{item}</span>
-                                        <Button
-                                        type='primary'
-                                        status='danger'
-                                        onClick={
-                                            () => handleDeleteKeyword(item, "blacklist")
-                                        }><IconDelete /></Button>
-                                    </div>
-                                )
-                            })
+                            blacklistList.length ? (
+                                blacklistList.map((item, index) => {
+                                    return(
+                                        (item.length) ? (
+                                            <div className='keyword-item' key={`${index}+${item}`}>
+                                            <span>{item}</span>
+                                            <Button
+                                            type='primary'
+                                            status='danger'
+                                            onClick={
+                                                () => handleDeleteKeyword(item, "blacklist")
+                                            }><IconDelete /></Button>
+                                        </div>
+                                        ) : (
+                                            <></>
+                                        )
+                                    )
+                                })
+                            ) : (
+                               <></>
+                            )
                         }
                         </div>
                         <div className="blacklist-embed">
                         <label htmlFor="#" className='keywords-label'>Blacklist Embed</label>
                         {
-                            blacklistembedList.map((item, index) => {
-                                return(
-                                    <div className='keyword-item' key={`${index}+${item}`}>
-                                        <span>{item}</span>
-                                        <Button
-                                        type='primary'
-                                        status='danger'
-                                        onClick={
-                                            () => handleDeleteKeyword(item, "blacklistembed")
-                                        }><IconDelete /></Button>
-                                    </div>
-                                )
-                            })
+                            blacklistembedList.length ? (
+                                blacklistembedList.map((item, index) => {
+                                    return(
+                                        (item.length) ? (
+                                            <div className='keyword-item' key={`${index}+${item}`}>
+                                            <span>{item}</span>
+                                            <Button
+                                            type='primary'
+                                            status='danger'
+                                            onClick={
+                                                () => handleDeleteKeyword(item, "blacklistembed")
+                                            }><IconDelete /></Button>
+                                        </div>
+                                        ) : (
+                                            <></>
+                                        )
+                                    )
+                                })
+                            ) : (
+                               <></>
+                            )
                         }
                         </div>
                     </div>
