@@ -103,7 +103,7 @@ const Signup = () => {
                 style={{width: '100%'}}
                 onClick={(e) => signupHandle(e)}
                 type="submit"
-                className="submit-btn">
+                className="submit-btn mb-3">
                     Singup
                 </button>
                 </Spin>
