@@ -107,12 +107,6 @@ const Signup = () => {
                     Singup
                 </button>
                 </Spin>
-                    
-                <div className="hr-container">
-                    <hr className="or-hr" data-content="OR" />
-                </div>
-
-                <button className="forgot-password">Forgot password?</button>
             </div>
             <div className="signup-div">
                 <p>Already have an account? <a href="/login">Login</a></p>

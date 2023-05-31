@@ -5,7 +5,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: row;
-    background-color: #ebeef0;
+    background-color: #f0f2f4;
 }
 
 .main{
@@ -18,9 +18,9 @@
     overflow: auto;
     display: flex;
     flex-direction: row;
+    border-radius: 5px;
     background-color: white;
-    border: 1px solid #dddd;
-    box-shadow: 0 2.5px 5px #dddd;
+    box-shadow: 0 5px 10px #eeee;
 
 }
 

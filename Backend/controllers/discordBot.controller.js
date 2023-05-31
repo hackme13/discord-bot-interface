@@ -80,6 +80,14 @@ const handleDiscordBot = (userId) => {
             blacklistembed: getKeywords.blacklistembed
         }
 
+        // removing replacemnets with key-value pair '0':''
+        if (Object.keys(configReplaceBlacklist.replacements).length === 1 && 
+            configReplaceBlacklist.replacements.hasOwnProperty("0"))
+        {
+            delete configReplaceBlacklist.replacements['0'];
+            configReplaceBlacklist.replacements["randomWordForInitialReplacement"] = ""
+        }
+
         const allowMentions = true;
 
         let ping = {};
@@ -102,31 +110,37 @@ const handleDiscordBot = (userId) => {
         };
 
         var lastContent = {};
-        
-        // Event that runs once the client is ready
-        bot.once('ready', () => {
-            // Access the cache property after the client is ready
-            const guildsCache = bot.guilds.cache;
-            console.log(`Cached guilds count: ${guildsCache.size}`);
-        });
 
         // Login to Discord with the provided token
         bot.login(token)
         .then(() => {
             console.log('Bot is logged in');
+            
+            // Event that runs once the client is ready
+            bot.once('ready', () => {
+                // Access the cache property after the client is ready
+                const guildsCache = bot.guilds.cache;
+                console.log(`Cached guilds count: ${guildsCache.size}`);
+            });
 
             // Event: Bot is ready
             bot.on('message', (message => {
                 let webhooks = config.channels[message.channel.id];
-                if(webhooks){
-                    if(configReplaceBlacklist.blacklist.some(w => message.content.toLowerCase().includes(w))) return
+
+                if(webhooks && webhooks.length > 0){
+                    const blacklistItems = configReplaceBlacklist.blacklist;
+                    const isValid = blacklistItems.some(str => str !== "");
+
+                    if (isValid && blacklistItems.some(w => message.content.toLowerCase().includes(w))) return 
+
                     let content = message.content
+
                     if(!config.allowMentions){
                         if(/<@!?(\d{17,19})>/g.test(message.content)) content = content.replace(/<@!?(\d{17,19})>/g, "")
                         if(/<@&(\d{17,19})>/g.test(message.content)) content = content.replace(/<@&(\d{17,19})>/g, "")
                     }
             
-                    let regExp = generateRegEx()
+                    let regExp = generateRegEx();                    
                     content = replace(content, regExp)
             
                     for(let webhookURL of webhooks){
@@ -165,6 +179,7 @@ const handleDiscordBot = (userId) => {
                     
                                 e = checkEmbedForKeywordsAnd('replace', e, regExp)
                                 hook.send({
+                                    content: content,
                                     embeds: [e]
                                 })
                                 .catch(err => 
@@ -173,14 +188,14 @@ const handleDiscordBot = (userId) => {
                             }
                         }
                     }
-                if(!content) lastContent.last = " " //If only attachment, does not count as duplicate
-                
+
+                    if(!content) lastContent.last = " " //If only attachment, does not count as duplicate
                 }
             }))
             
             bot.on('ready', () => {
                 let channels = Object.keys(config.channels).flat()
-                console.log("object " + channels)
+                console.log("Channels: " + channels)
                 for(let id of channels){
                     if(!bot.channels.cache.has(id))
                         console.log('Unavailable', id)
@@ -218,7 +233,7 @@ const handleDiscordBot = (userId) => {
                             }
                         }
                     }
-                }else if(typeof embed[key] == 'object'){
+                } else if(typeof embed[key] == 'object'){
                     for(let p in embed[key]){
                         let match = keywords.find(kw => embed[key][p]?.toString()?.toLowerCase()?.includes(kw))
                         if(match){
@@ -228,7 +243,7 @@ const handleDiscordBot = (userId) => {
                             }
                         }
                     }
-                }else{
+                } else{
                     let match = keywords.find(kw => embed[key]?.toString()?.toLowerCase()?.includes(kw))
                     if(match){
                         if(action == 'ignore') return match

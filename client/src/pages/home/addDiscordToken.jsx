@@ -55,7 +55,14 @@ const AddDiscordToken = () => {
         
         // if yes token found -> update prev token with new token
         if (resGetToken.token) {
-            const resUpdateToken = await updateToken(resGetToken.token ,tokenData.new_token);
+            const resUpdateToken = await updateToken(resGetToken.token, tokenData.new_token);
+
+            if (!resUpdateToken) {
+                return Notification.error({
+                    title: "Failed",
+                    content: `Failed to update token.\nError: ${resUpdateToken.message}`
+                })
+            }
             if (resUpdateToken.success){
                 return Notification.success({
                     title: "Success",
@@ -67,6 +74,7 @@ const AddDiscordToken = () => {
                     content: `Failed to update token.\nError: ${resUpdateToken.message}`
                 })
             }
+
         }
     }
 
