@@ -1,4 +1,4 @@
-const API_URL = "https://discord-mirror-bot-backend.herokuapp.com";
+const API_URL = "https://discord-bot-server-l4z9.onrender.com";
 
 export default API_URL;
 
@@ -6,4 +6,4 @@ export default API_URL;
 // http://localhost:9000
 
 // for production backend
-// https://discord-mirror-bot-backend.herokuapp.com
+// https://discord-bot-server-l4z9.onrender.com
